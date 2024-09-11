@@ -6,6 +6,7 @@ const Navbar = () => {
     { href: '/', label: 'Home' },
     {href: '/todo-list', label: 'Todo List'},
     { href: '/gallery', label: 'Gallery' },
+    {href: '/todo-list/testing-db', label: 'Testing DB'},
   ];
 
   return (

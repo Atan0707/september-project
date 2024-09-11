@@ -55,7 +55,7 @@ const TodoList = () => {
         <h1>Todo List</h1>
         <div className="container mx-auto py-10">
             <DataTable columns={columns} data={data} /></div>
-        <Button>
+          <Button>
           <Link href='/todo-list/new-todo'>Create New!</Link>
           </Button>
     </div>
