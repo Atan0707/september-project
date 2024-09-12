@@ -11,8 +11,11 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         author: { select: { name: true } }
       }
     });
-    res.status(200).json(posts);
+    // res.status(200).json(posts);
+    console.log(posts);
+    return Response.json(posts)
   } catch (error) {
-    res.status(500).json({ error: 'Error fetching posts' });
+    // res.status(500).json({ error: 'Error fetching posts' });
+    return Response.json({ error: 'Error fetching posts' });
   }
 }

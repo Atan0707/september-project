@@ -17,7 +17,7 @@ export const columns: ColumnDef<Todo>[] = [
         header: "ID",
     },
     {
-        accessorKey: "author",
+        accessorKey: "author.name",
         header: "Author",
     },
     {
