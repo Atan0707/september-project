@@ -1,33 +1,33 @@
 "use client"
 import Link from 'next/link';
-import prisma from '@/lib/prisma'
+// import prisma from '@/lib/prisma'
 import { Todo, columns } from '@/app/components/table-database/column';
 import { DataTable } from '@/app/components/table-database/data-table';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-async function getPosts(): Promise<Todo[]> {
-  // return [
-  //   {
-  //     id: "728ed52f",
-  //     title: "Learn Next.js",
-  //     content: "Learn Next.js and Prisma",
-  //     author: "Tim"
-  //   },
-  //   {
-  //     id: "728ed52g",
-  //     title: "Learn React",
-  //     content: "Learn React and TypeScript",
-  //     author: "Tim",
-  //   },
-  //   {
-  //     id: "728ed52h",
-  //     title: "Learn GraphQL",
-  //     content: "Learn GraphQL and Apollo",
-  //     author: "Tim"
-  //   },
-  // ]
-}
+// async function getPosts(): Promise<Todo[]> { //test data
+//   // return [
+//   //   {
+//   //     id: "728ed52f",
+//   //     title: "Learn Next.js",
+//   //     content: "Learn Next.js and Prisma",
+//   //     author: "Tim"
+//   //   },
+//   //   {
+//   //     id: "728ed52g",
+//   //     title: "Learn React",
+//   //     content: "Learn React and TypeScript",
+//   //     author: "Tim",
+//   //   },
+//   //   {
+//   //     id: "728ed52h",
+//   //     title: "Learn GraphQL",
+//   //     content: "Learn GraphQL and Apollo",
+//   //     author: "Tim"
+//   //   },
+//   // ]
+// }
 
 const TodoList = () => {
   const [data, setData] = useState<Todo[]>([]);
@@ -45,7 +45,7 @@ const TodoList = () => {
         console.log(result)
       }
       catch (error) {
-        setError(error);
+        setError('Error fetching posts' + error);
         setErrorBool(true);
         setLoading(false);
       }
