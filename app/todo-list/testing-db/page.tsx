@@ -60,7 +60,7 @@ const TodoList = () => {
 
   return (
     <div className='m-5'>
-      <h1>Todo List</h1>
+      <h1>Todo List (Testing Page)</h1>
       {errorBool && <div>{error}</div>}
       <div className="container mx-auto py-10">
         <DataTable columns={columns} data={data} />

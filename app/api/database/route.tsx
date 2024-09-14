@@ -18,3 +18,25 @@ export async function GET() {
     return Response.json({ error: 'Error fetching posts' });
   }
 }
+
+// export async function POST(req: Request) {
+//   try {
+//     const body = await req.json();
+//     const { title, content } = body;
+//     console.log(title, content);
+//     return new Response(JSON.stringify({ message: 'Data received' }), {
+//       status: 200,
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//   } catch (error) {
+//     console.error('Error parsing request body:', error);
+//     return new Response(JSON.stringify({ error: 'Error parsing request body' }), {
+//       status: 400,
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//     });
+//   }
+// }

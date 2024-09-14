@@ -1,38 +1,33 @@
 "use client"
-import { Button } from '@/components/ui/button'
-import React, { useEffect, useState } from 'react'
-import { Payment, columns } from '../components/data-table/column'
-import { DataTable } from '../components/data-table/data-table'
 import Link from 'next/link';
+// import prisma from '@/lib/prisma'
+import { Todo, columns } from '@/app/components/table-database/column';
+import { DataTable } from '@/app/components/table-database/data-table';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { Button } from '@/components/ui/button';
 
-async function getData(): Promise<Payment[]> {
-    // Fetch data from your API here.
-    return [
-      {
-        id: "728ed52f",
-        amount: 100,
-        status: "pending",
-        email: "m@example.com",
-      },
-      {
-        id: "728ed52g",
-        amount: 200,
-        status: "processing",
-        email: "lol@gmailcom",
-        }
-      // ...
-    ];
-  }
 
-const TodoList = () => { 
-    const [data, setData] = useState<Payment[]>([]);
+const TodoList = () => {
+  const [data, setData] = useState<Todo[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+  const [errorBool, setErrorBool] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getData();
-      setData(result);
-      setLoading(false);
+      try {
+        const result = await axios.get('/api/database');
+        console.log(result.data)
+        setData(result.data);
+        setLoading(false);
+        console.log(result)
+      }
+      catch (error) {
+        setError('Error fetching posts' + error);
+        setErrorBool(true);
+        setLoading(false);
+      }
     };
 
     fetchData();
@@ -42,24 +37,20 @@ const TodoList = () => {
     return <div>Loading...</div>;
   }
 
-
-
   return (
     <div className='m-5'>
-        {/*
-         Goal for today (11.9.2024)
-        - complete basic todo list
-        - able to add todo (maybe just use JSON file for now)
-        - create nice layout
-        */}
-        <h1>Todo List</h1>
-        <div className="container mx-auto py-10">
-            <DataTable columns={columns} data={data} /></div>
-          <Button>
-          <Link href='/todo-list/new-todo'>Create New!</Link>
-          </Button>
+      <h1>Todo List</h1>
+      {errorBool && <div>{error}</div>}
+      <div className="container mx-auto py-10">
+        <DataTable columns={columns} data={data} />
+      </div>
+      <Button>
+      <Link href='/todo-list/new-todo'>Create New!</Link>
+      </Button>
+      
     </div>
   )
+
 }
 
 export default TodoList

@@ -15,13 +15,15 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
+import { ComboboxDemo } from "../combobox/combobox"
+import axios from "axios"
  
 const formSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
+  title: z.string().min(2, {
+    message: "Must atleast 2 character.",
   }),
-  email: z.string().email({
-    message: "Please enter a valid email address.",
+  content: z.string().min(5, {
+    message: "Must atleast 5 character.",
   }),
 })
  
@@ -30,15 +32,24 @@ export function ProfileForm() {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        username: "",
-        email: "",
+        title: "",
+        content: "",
       },
     })
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    async function onSubmit(values: z.infer<typeof formSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
-        console.log(values)
+        try {
+          const response = await axios.post("/api/database/submitForm", {
+            title: values.title,
+            content: values.content,
+            value: values.value,
+          })
+          console.log(response.data)
+        } catch (error) {
+          console.log('Error making POST request:', error)
+        }
       }
   // ...
  
@@ -47,15 +58,15 @@ export function ProfileForm() {
   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
     <FormField
       control={form.control}
-      name="username"
+      name="title"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Username</FormLabel>
+          <FormLabel>Title</FormLabel>
           <FormControl>
             <Input placeholder="shadcn" {...field} />
           </FormControl>
           <FormDescription>
-            This is your public display name.
+            Add title of you content.
           </FormDescription>
           <FormMessage />
         </FormItem>
@@ -63,20 +74,21 @@ export function ProfileForm() {
     />
     <FormField
       control={form.control}
-      name="email"
+      name="content"
       render={({ field }) => (
         <FormItem>
-          <FormLabel>Email</FormLabel>
+          <FormLabel>Content</FormLabel>
           <FormControl>
-            <Input type="email" placeholder="example@example.com" {...field} />
+            <Input placeholder="what do you do today?" {...field} />
           </FormControl>
           <FormDescription>
-            We&apos;ll never share your email with anyone else.
+            Share your stories here!
           </FormDescription>
           <FormMessage />
         </FormItem>
       )}
     />
+    <ComboboxDemo />
     <Button type="submit">Submit</Button>
   </form>
 </Form>
