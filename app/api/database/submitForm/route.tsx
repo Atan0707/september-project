@@ -5,8 +5,9 @@
 export async function POST(req: Request) {
     try {
       const body = await req.json();
-      const { title, content, value } = body;
-      console.log(title, content, value);
+      const { title, content } = body;
+      console.log(title, content);
+      // nanti tambah value untuk combo box here
       return new Response(JSON.stringify({ message: 'Data received' }), {
         status: 200,
         headers: {
