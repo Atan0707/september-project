@@ -44,7 +44,7 @@ export function ProfileForm() {
           const response = await axios.post("/api/database/submitForm", {
             title: values.title,
             content: values.content,
-            value: values.value,
+            // value: values.value,
           })
           console.log(response.data)
         } catch (error) {
