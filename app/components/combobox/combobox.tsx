@@ -49,6 +49,8 @@ interface User {
 }
 
 
+
+
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
@@ -71,6 +73,10 @@ export function ComboboxDemo() {
 
     getData();
   }, []);
+
+  React.useEffect(() => {
+    console.log(value)
+  }, [value])
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
